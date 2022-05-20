@@ -3,6 +3,8 @@
 This project was bootstrapped with npm init
 
 Intercept two arrays 
+single dimension
+multi dimension
 
 ## Available Scripts
 
