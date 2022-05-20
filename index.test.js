@@ -1,4 +1,4 @@
-var intersection = require("./index.js");
+var intersection = require("./multiDimension.js");
 
 describe("Intersection", () => {
   test("empty", () => {
