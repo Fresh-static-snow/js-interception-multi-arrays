@@ -1,4 +1,4 @@
-# js-interception-multi-arrays
+# js-interview-tasks
 
 This project was bootstrapped with npm init
 
