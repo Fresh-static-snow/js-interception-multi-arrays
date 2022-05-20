@@ -1,6 +1,11 @@
 # js-interception-multi-arrays
+
+This project was bootstrapped with npm init
+
 Intercept two arrays 
 
-# run commands 
-## npm i 
-## npm run test
+## Available Scripts
+
+In the project directory, you can run:
+### `npm i`
+### `npm run test`
