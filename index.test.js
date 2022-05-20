@@ -1,36 +1,14 @@
-var intersection = require("./index.js");
+const sortNumbers = require("./sortNumbers");
 
-describe("Intersection", () => {
-  test("empty", () => {
-    expect(intersection()).toEqual([]);
-  });
-
-  test("invalid types", () => {
-    expect(intersection(null)).toEqual([]);
-    expect(intersection("string1", "string2")).toEqual([]);
-    expect(intersection(2, 3)).toEqual([]);
-    expect(intersection({}, {})).toEqual([]);
-  });
-
-  test("single dimension", () => {
-    expect(intersection([1, 2, 3, 4], [])).toEqual([]);
-    expect(intersection([1, 2, 3, 4], [4, 3, 2, 1])).toEqual([1, 2, 3, 4]);
-    expect(intersection([1, 2, 3, 4], [3])).toEqual([3]);
-    expect(intersection(["string"], ["a", "b", "string", "d"])).toEqual([
-      "string"
-    ]);
-  });
-
-  test("n-dimensional", () => {
-    expect(intersection([1, [2, 3]], [[2]])).toEqual([[2]]);
-    expect(intersection([1, 2, [3, [4]]], [1, [[4]]])).toEqual([1, [[4]]]);
-    expect(intersection([[[1, 2, 3]]], [1, 2, 3, [[2, 3]]])).toEqual([
-      [[2]],
-      [[3]]
-    ]);
-    expect(intersection([[1, [2, [[3]]]]], [[1, [[2, [3]]]]])).toEqual([
-      [1],
-      [[[[3]]]]
-    ]);
-  });
+test("Sort even numbers in ascending order", () => {
+  expect(sortNumbers([12, 4, 6, 22, 8, 2])).toEqual([2, 4, 6, 8, 12, 22]);
 });
+
+test("Sort odd numbers in descending order", () => {
+  expect(sortNumbers([7, 1, 3, 13, 21, 9])).toEqual([21, 13, 9, 7, 3, 1]);
+});
+
+test("Sort even in asc then odd in desc order", () => {
+  expect(sortNumbers([12, 7, 4, 1, 6, 3])).toEqual([4, 6, 12, 7, 3, 1]);
+});
+
