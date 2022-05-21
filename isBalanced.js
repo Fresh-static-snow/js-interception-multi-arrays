@@ -33,7 +33,3 @@
 
   return !open.length 
 };
-
-// expect(isBalanced("")).toBe(true);
-//   expect(isBalanced()).toBe(true);
-//   expect(isBalanced("empty")).toBe(true);
