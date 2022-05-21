@@ -1,14 +1,57 @@
-const sortNumbers = require("./sortNumbers");
+const isBalanced = require("./isBalanced.js");
 
-test("Sort even numbers in ascending order", () => {
-  expect(sortNumbers([12, 4, 6, 22, 8, 2])).toEqual([2, 4, 6, 8, 12, 22]);
+test("empty", () => {
+  expect(isBalanced("")).toBe(true);
+  expect(isBalanced()).toBe(true);
+  expect(isBalanced("empty")).toBe(true);
 });
 
-test("Sort odd numbers in descending order", () => {
-  expect(sortNumbers([7, 1, 3, 13, 21, 9])).toEqual([21, 13, 9, 7, 3, 1]);
+test("simple", () => {
+  expect(isBalanced("()")).toBe(true);
+  expect(isBalanced("[]")).toBe(true);
+  expect(isBalanced("{}")).toBe(true);
+  expect(isBalanced("(")).toBe(false);
+  expect(isBalanced("]")).toBe(false);
+  expect(isBalanced("}")).toBe(false);
+  expect(isBalanced("()[]{}")).toBe(true);
 });
 
-test("Sort even in asc then odd in desc order", () => {
-  expect(sortNumbers([12, 7, 4, 1, 6, 3])).toEqual([4, 6, 12, 7, 3, 1]);
+test("nested", () => {
+  expect(isBalanced("([{}])")).toBe(true);
+  expect(isBalanced("[[[]]]")).toBe(true);
+  expect(isBalanced("{[{}]}")).toBe(true);
+  expect(isBalanced("[[[]]")).toBe(false);
+  expect(isBalanced("{[()}")).toBe(false);
+  expect(isBalanced("{([")).toBe(false);
+  expect(isBalanced("([{}))")).toBe(false);
+  expect(isBalanced("([{}]]")).toBe(false);
 });
 
+test("medium", () => {
+  expect(isBalanced("({text})")).toBe(true);
+  expect(isBalanced("{t(ex{}t)}")).toBe(true);
+  expect(isBalanced("text(){}]")).toBe(false);
+  expect(isBalanced("[text]te}xt({})")).toBe(false);
+  expect(isBalanced("arg => arg.reduce((acc, c)=>({...acc,[c]:[0]}})")).toBe(
+    false
+  );
+  expect(isBalanced("arg => arg.reduce((acc, c)=>({...acc,[c]:[0]}))")).toBe(
+    true
+  );
+});
+
+test("hard", () => {
+  expect(
+    isBalanced(`const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x);`)
+  ).toBe(true);
+  expect(
+    isBalanced(
+      `export function resolveLazyComponentTag(Component: Function): WorkTag { if (typeof Component === 'function') { return shouldConstruct(Component) ? ClassComponent : FunctionComponent; } else if (Component !== undefined && Component !== null) { const $$typeof = Component.$$typeof; if ($$typeof === REACT_FORWARD_REF_TYPE) { return ForwardRef; } if ($$typeof === REACT_MEMO_TYPE) { return MemoComponent; } } return IndeterminateComponent; }`
+    )
+  ).toBe(true);
+  expect(
+    isBalanced(
+      `const map = {93: 91, 125: 123, 41: 40}; if (!s) return true; return [...s].reduce((a, c) => [91, 123, 40].includes(c.charCodeAt(0)) ? a.concat(c) : map[c.charCodeAt(0)] ? (String.fromCharCode(map[c.charCodeAt(0)]) === a[a.length - 1]) ? a.slice(0, -1) : a.concat(0) : a, []) .length === 0;`
+    )
+  ).toBe(true);
+});
